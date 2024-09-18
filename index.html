@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donuts House</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Alpine Js -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <!-- App -->
+    <script src="src/app.js"></script>
+
+    <!-- My Style -->
+    <link rel="stylesheet" href="CSS/style.css" />
+  </head>
+
+  <body>
+    <!-- Navbar Start -->
+    <nav class="navbar" x-data>
+      <a href="#" class="navbar-logo">Donuts<span>House</span> </a>
+
+      <div class="navbar-nav">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#About">About Us</a></li>
+          <li><a href="#Menu">Menu</a></li>
+          <li><a href="#Contact">Contact</a></li>
+        </ul>
+      </div>
+      <!-- Search Form Start-->
+      <div class="search-form">
+        <input
+          type="search"
+          name=""
+          id="search-box"
+          placeholder="Search here..."
+        />
+      </div>
+      <!-- Search Form End-->
+      <div class="navbar-extra">
+        <a href="#" id="search-btn"
+          ><i data-feather="search" class="search-btn"></i
+        ></a>
+        <a href="#" id="shopping-cart-btn"
+          ><i data-feather="shopping-cart"></i>
+          <span
+            class="quantity-badge"
+            x-show="$store.shoppingCart.quantity"
+            x-text="$store.shoppingCart.quantity"
+          ></span>
+        </a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+
+      <!-- Shopping Cart Start -->
+      <div class="shopping-cart">
+        <template
+          x-for="(item, index) in $store.shoppingCart.items"
+          x-key="index"
+        >
+          <div class="cart-item">
+            <img :src="`gambar/${item.img}`" :alt="item.name" />
+            <div class="item-detail">
+              <h3 x-text="item.name"></h3>
+              <div class="item-price">
+                <span x-text="dollar(item.price)"></span>
+                <button
+                  id="remove"
+                  @click="$store.shoppingCart.remove(item.id)"
+                >
+                  &minus;
+                </button>
+                <span x-text="item.quantity"></span>
+                <button id="add" @click="$store.shoppingCart.add(item)">
+                  &plus;</button
+                >&equals;
+                <span x-text="dollar(item.total)"></span>
+              </div>
+            </div>
+            <!-- <i class="ph ph-trash remove-item"></i> -->
+          </div>
+        </template>
+        <h4 x-show="!$store.shoppingCart.items.length">Cart is empty</h4>
+        <h4 x-show="$store.shoppingCart.items.length">
+          Total : <span x-text="dollar($store.shoppingCart.total)"></span>
+        </h4>
+        <div class="form-container" x-show="$store.shoppingCart.items.length">
+          <form action="" id="checkoutForm">
+            <h5>Customer Detail</h5>
+            <label for="name">
+              <span>Name</span>
+              <input type="text" name="name" id="name" />
+            </label>
+            <label for="email">
+              <span>email</span>
+              <input type="email" email="email" id="email" />
+            </label>
+            <label for="phone">
+              <span>phone</span>
+              <input
+                type="number"
+                phone="phone"
+                id="phone"
+                autocomplete="off"
+              />
+            </label>
+            <button class="Checkout-btn" type="submit" id="Checkout-btn">
+              Checkout
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- Shopping Cart End -->
+    </nav>
+    <!-- Navbar End -->
+    <!-- Hero Section Start -->
+    <section class="hero" id="home">
+      <main class="content">
+        <h1>Donuts <span>Rich</span></h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel
+          perspiciatis consectetur perferendis molestiae corporis non!
+        </p>
+        <a href="#" class="cta">Beli Sekarang</a>
+      </main>
+    </section>
+    <!-- Hero Section End -->
+    <!-- About Section Start -->
+    <section id="About" class="about">
+      <h2><span>About</span> Us</h2>
+      <div class="row">
+        <div class="about-img">
+          <img src="gambar/About.jpg" alt="About Us" />
+        </div>
+        <div class="content">
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum
+            cum atque sit similique. Ipsum, voluptatum. Lorem ipsum dolor sit
+            amet consectetur adipisicing elit. Ea, magni.
+          </p>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi,
+            quidem porro assumenda unde magnam quibusdam tempora vitae alias
+            quam sed?
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- About Section End -->
+    <!-- Menu Section Start -->
+    <section id="Menu" class="menu" x-data="products">
+      <h2>Menu</h2>
+      <div class="card-container">
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="card">
+            <img :src="`gambar/${item.img}`" :alt="item.name" />
+            <div class="card-content">
+              <h3 x-text="item.name"></h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Laboriosam, temporibus.
+              </p>
+              <div class="menu-stars">
+                <i class="ph ph-star"></i>
+                <i class="ph ph-star"></i>
+                <i class="ph ph-star"></i>
+                <i class="ph ph-star"></i>
+                <i class="ph ph-star"></i>
+              </div>
+              <a
+                href="#"
+                class="cta"
+                @click.prevent="$store.shoppingCart.add(item)"
+                ><span x-text="dollar(item.price)"></span> Buy Now</a
+              >
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+    <!-- Menu Section End -->
+    <!-- Contact Section Start -->
+    <section id="Contact" class="contact">
+      <h2>Contact <span>Us</span></h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non deserunt
+        tempore laboriosam sint nostrum placeat.
+      </p>
+      <div class="social">
+        <a href="https://www.instagram.com/muhamad.irfan_/" class="ig">
+          <i class="ph-duotone ph-instagram-logo ig-icon"></i>
+        </a>
+        <a href="https://x.com/irfanade194" class="X">
+          <i class="ph-duotone ph-x-logo X-icon"></i>
+        </a>
+        <a
+          href="https://web.facebook.com/profile.php?id=100025632693660"
+          class="X"
+        >
+          <i class="ph-duotone ph-facebook-logo Fb-icon"></i>
+        </a>
+      </div>
+    </section>
+    <!-- Contact Section End-->
+    <!-- Feather Icons -->
+    <script>
+      feather.replace();
+    </script>
+    <!-- js -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
